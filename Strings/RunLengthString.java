@@ -1,34 +1,32 @@
 package com.coderpad.preparation;
 
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class RunLengthString {
 
 	//Write a program to print run length or compression of a string eg: 'abcabcd' //output: a2b2c2d1
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.print("Enter a String: ");
-		Scanner input = new Scanner(System.in);
-		String str = input.next();
-		System.out.println("Run Length of the input string is: " + findRunLength(str));
-	}
-	
-	public static String findRunLength(String str) {
-		int count[] = new int[26];
-		for(int i=0; i<str.length(); i++) {
-			char ch=str.charAt(i);
-			count[ch-'a'] +=1;
+	static void runLengthEncode(String str) { 
+		if(str.trim().isEmpty()) {
+			System.out.println("Run Length Encoding is: ");
+			return;
 		}
-		String result = "";
-		char temp;
-		for(int i=0; i< count.length; i++) {
-			if(count[i] != 0) {
-				temp = (char)(i+'a');
-				result += Character.toString(temp);
-				result += Integer.toString(count[i]);
-			}
+		int n =str.length();
+		LinkedHashMap<Character, Integer> lhm = new LinkedHashMap<Character,Integer>(); 
+		for(char c: str.toCharArray()) { 
+			if(lhm.containsKey(c))
+				lhm.put(c, lhm.get(c)+1); 
+			else 
+				lhm.put(c, 1); 
 		}
-		return result;
+		System.out.println("Run Length Encoding is: "); 
+		lhm.forEach((c,i) -> {System.out.print(c); System.out.print(i); }); 
 	}
-
+	public static void main(String[] args) { 
+		String str ="aabbccdde";
+		if(str != null)
+			runLengthEncode(str); 
+		else
+			System.out.println("Run Length Encoding is: "+""); 
+	}
 }
